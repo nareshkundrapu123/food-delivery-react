@@ -41,7 +41,7 @@ const styleCard={
     
 };
 
-const RestaurantCard =()=>{
+const RestaurantCard =(resName, cuisine)=>{
 
     return(
       <div className="res-card" style={styleCard}>
@@ -49,8 +49,8 @@ const RestaurantCard =()=>{
         className="res-logo"
         alt="res-logo" 
         src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/5/9/e882bf86-5a9d-4515-b139-d19a155778e7_647286.JPG"/>
-        <h3>Meghana Foods</h3>
-        <h4>Biryani, North Indian, Asian</h4>
+        <h3>{resName}</h3>
+        <h4>{cuisine}</h4>
         <h4>4.3 starts</h4>
         <h4>38 minutes</h4>
       </div>  
@@ -65,21 +65,15 @@ return(
     <div className="body">
     <div className="search">Search</div>
     <div className="res-container"> 
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/> 
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/> 
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>  
-            <RestaurantCard/>    
+            <RestaurantCard 
+                resName="Meghana Foods"
+                cuisine="Biryani, North Indian, Asian"
+            />  
+            <RestaurantCard 
+            resName="KFC"
+            cuisine="Burger,french fry"
+            />  
+    
 
     </div>
     </div>
