@@ -43,7 +43,14 @@ const styleCard={
 
 const RestaurantCard =(props)=>{
     const{resData}=props;
-   // console.log(props);
+    const{cloudinaryImageId,
+      name,
+      cuisines,
+      avgRating,
+      costForTwo,
+      deliveryTime
+    }=resData?.info;
+ //  console.log(props);
     return(
       <div className="res-card" style={styleCard}>
         <img
@@ -56,11 +63,11 @@ const RestaurantCard =(props)=>{
         className="res-logo" 
         alt="res-logo" 
         src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/jsv4qlq9g4ktvvbjebd7"/> */}
-        <h3>{resData.info.name}</h3>
-        <h4>{resData.info.cuisines.join(", ")}</h4>
-        <h4>{resData.info.avgRating} stars</h4>
-        <h4>{resData.info.costForTwo}</h4>
-        <h4>{resData.info.deliveryTime}</h4>
+        <h3>{name}</h3>
+        <h4>{cuisines.join(", ")}</h4>
+        <h4>{avgRating} stars</h4>
+        <h4>{costForTwo}</h4>
+        <h4>{deliveryTime}</h4>
         <h4>38 minutes</h4>
       </div>  
     ); 
@@ -2018,9 +2025,21 @@ const Body =()=>{
 
 return(
     <div className="body">
-    <div className="search">Search</div>
+    <div className="search">Search 
+      <input type="text"/>
+    </div>
     <div className="res-container"> 
-            <RestaurantCard 
+
+        {
+          resObj.map((naresh)=>(
+          <RestaurantCard 
+          key={naresh.info.id}
+          resData={naresh}/>
+        )
+            )
+        }
+      
+            {/* <RestaurantCard 
             resData={resObj[0]}/>  
             <RestaurantCard 
             resData={resObj[1]}/>  
@@ -2060,7 +2079,7 @@ return(
             resData={resObj[18]}/>  
             <RestaurantCard 
             resData={resObj[19]}/>  
-            
+             */}
             {/* <RestaurantCard 
             resName="KFC"
             cuisine="Burger, French fries, Pizza"
