@@ -13,7 +13,8 @@ const RestaurantCard =(props)=>{
       avgRating,
       costForTwo,
       deliveryTime
-    }=resData?.info;
+      //resData?.data?.cards?.card.card.info
+    }=resData?.card?.card?.info;
  //  console.log(props);
     return(
       <div className="res-card" style={styleCard}>

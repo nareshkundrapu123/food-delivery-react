@@ -24,7 +24,7 @@
  export defaultname of variable or component;
  import component from "path";
 
--Named Export/Import
+-Named Export/Importv
 
 export const Component;
 import {component} from "path"
