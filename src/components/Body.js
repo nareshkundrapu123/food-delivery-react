@@ -12,18 +12,20 @@ const Body =()=>{
   //Normal JS Variable
   let[listofresto,Setlistofresto]=useState(resObj);
   
+  
+
   useEffect(()=>{
     console.log("useEffect called");
-    //fetchData();
+    fetchData();
   },[]);
 
   const fetchData=async()=>{
     try{
     const data= await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.6854667&lng=83.2432403&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4543771&lng=78.3815201&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
     const json =await data.json();
     console.log(json);
-    Setlistofresto(json.data.cards.card);
+   // Setlistofresto(json.data.cards.card);
     console.log("fetched perfectly");
     }catch(error){
       console.error("error fetching data :",error);
@@ -105,7 +107,7 @@ const Body =()=>{
             {
               listofresto.map((naresh)=>(
               <RestaurantCard 
-              key={naresh.card?.card?.info.id}
+              key={naresh.info.id}
               resData={naresh}/>
             )
                 )
