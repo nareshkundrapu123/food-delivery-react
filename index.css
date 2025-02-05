@@ -50,3 +50,13 @@
     width:200px;
     height:140;
 }
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.shimmer-cards{
+    margin: 20px;
+    width: 200px;
+    height: 400px;
+    background-color:lightgray;
+}

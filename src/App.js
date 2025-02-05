@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
-
+import About from "./components/About.js";
+import { createBrowserRouter,RouterProvider } from "react-router-dom";
 
 
 
@@ -10,11 +11,6 @@ const styleCard={
   backgroundColor:"lightgrey"
     
 };
-
-
-
-
- 
 
 const AppLayout= ()=>{
     return (
@@ -25,8 +21,19 @@ const AppLayout= ()=>{
     )
 };
 
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element:<AppLayout />,
+
+    },
+    {
+        path: "/about",
+        element:<About />
+    },
+]);
 
 
 
 const root=ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout/>);
+root.render(<RouterProvider router={appRouter}/>);

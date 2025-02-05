@@ -3,35 +3,43 @@ import RestaurantCard from "./RestaurantCard";
 import resObj from "../utils/mockData";
 import { useEffect, useState } from "react";
 import resObj from "../utils/mockData";
-
+import Shimmer from "./shimmer";
 
 const Body =()=>{
 
   //State Variable - Super powerful variable
 
   //Normal JS Variable
-  let[listofresto,Setlistofresto]=useState(resObj);
+  const [listofresto,Setlistofresto]=useState([]);
+  const [filterresto,Setfilterresto]=useState([]);
+  const [searchText,SetSearchtext]=useState("");
   
-  
+  useEffect(()=>{
+    console.log("useEffect called");
+  });
 
   useEffect(()=>{
     console.log("useEffect called");
     fetchData();
-  },[]);
+  }, []);
 
   const fetchData=async()=>{
-    try{
-    const data= await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4543771&lng=78.3815201&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
-    const json =await data.json();
-    console.log(json);
-   // Setlistofresto(json.data.cards.card);
-    console.log("fetched perfectly");
-    }catch(error){
-      console.error("error fetching data :",error);
-    }
+  const data=await fetch(
+    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.68282&lng=83.24323&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  );
+  const son=await data.json();
+  console.log(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+  
+ Setlistofresto(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+ Setfilterresto(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+
   };
   console.log("body rendered");
+  console.log(listofresto.length);
+  if(listofresto.length === 0){
+    console.log(listofresto.length);
+    return <Shimmer />;
+  }
   
 
 
@@ -86,8 +94,29 @@ const Body =()=>{
     return(
         <div className="body">
         <div className="filter">
+        <div className="searching">
+            <input type="test" 
+            className="search-box"
+            value={searchText}
+            onChange={(e)=>{
+            SetSearchtext(e.target.value);
+          }}/>
+
+          <button onClick={()=>{
+            console.log(searchText);
+
+           const filterRest1= listofresto.filter(
+            (res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase())
+
+             );
+             Setfilterresto(filterRest1);
+          }}>
+            Search
+          </button>
+        </div>
+          
           <button className="filter-btn" onClick={()=>{
-           filterresto= listofresto.filter((res)=>
+         const filterresto= listofresto.filter((res)=>
               res.info.avgRating >=4
             );
             Setlistofresto(filterresto); 
@@ -105,7 +134,7 @@ const Body =()=>{
         <div className="res-container"> 
     
             {
-              listofresto.map((naresh)=>(
+                filterresto.map((naresh)=>(
               <RestaurantCard 
               key={naresh.info.id}
               resData={naresh}/>
