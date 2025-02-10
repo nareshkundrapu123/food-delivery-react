@@ -42,8 +42,20 @@
     display: flex;
     flex-wrap: wrap;
 }
+.filter-btn{
+    display: flex;
+    margin: 5px;
+}
+.filter{
+    display: flex;
+}
 .search{
+    
     padding: 10px;
+}
+.search-box{
+    margin: 5px;
+    
 }
 .res-logo {
     

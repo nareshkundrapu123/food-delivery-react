@@ -4,6 +4,7 @@ import resObj from "../utils/mockData";
 import { useEffect, useState } from "react";
 import resObj from "../utils/mockData";
 import Shimmer from "./shimmer";
+import { Link } from "react-router-dom";
 
 const Body =()=>{
 
@@ -14,12 +15,10 @@ const Body =()=>{
   const [filterresto,Setfilterresto]=useState([]);
   const [searchText,SetSearchtext]=useState("");
   
-  useEffect(()=>{
-    console.log("useEffect called");
-  });
+  
 
   useEffect(()=>{
-    console.log("useEffect called");
+    //console.log("useEffect called");
     fetchData();
   }, []);
 
@@ -28,16 +27,16 @@ const Body =()=>{
     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.68282&lng=83.24323&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
   );
   const son=await data.json();
-  console.log(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+  //console.log(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   
- Setlistofresto(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
- Setfilterresto(son.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+ Setlistofresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+ Setfilterresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
   };
-  console.log("body rendered");
-  console.log(listofresto.length);
+  //console.log("body rendered");
+  //console.log(listofresto.length);
   if(listofresto.length === 0){
-    console.log(listofresto.length);
+   // console.log(listofresto.length);
     return <Shimmer />;
   }
   
@@ -103,7 +102,7 @@ const Body =()=>{
           }}/>
 
           <button onClick={()=>{
-            console.log(searchText);
+           // console.log(searchText);
 
            const filterRest1= listofresto.filter(
             (res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -135,9 +134,10 @@ const Body =()=>{
     
             {
                 filterresto.map((naresh)=>(
-              <RestaurantCard 
-              key={naresh.info.id}
-              resData={naresh}/>
+           <Link key={naresh.info.id} to={"/restaurants/"+naresh.info.id} > <RestaurantCard 
+              
+              resData={naresh}/></Link>
+            
             )
                 )
             }
