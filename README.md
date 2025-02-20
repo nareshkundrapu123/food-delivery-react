@@ -16,6 +16,11 @@
  * -Contact
  * 
  */
+<!-- another way to add style to webpage by sass and scss -->
+<!-- 2 types of routing -->
+1.client side routing
+2.Server side routing
+
 
  Two types of Export/Import
  

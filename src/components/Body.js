@@ -1,11 +1,12 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withfreedelivery} from "./RestaurantCard";
 
 import resObj from "../utils/mockData";
 import { useEffect, useState } from "react";
 import resObj from "../utils/mockData";
 import Shimmer from "./shimmer";
 import { Link } from "react-router-dom";
-
+import useOnlinestatus from "../utils/useOnlinestatus";
+import { restaurant } from "../utils/constants";
 const Body =()=>{
 
   //State Variable - Super powerful variable
@@ -15,7 +16,7 @@ const Body =()=>{
   const [filterresto,Setfilterresto]=useState([]);
   const [searchText,SetSearchtext]=useState("");
   
-  
+  console.log("bodyrender",listofresto); 
 
   useEffect(()=>{
     //console.log("useEffect called");
@@ -23,22 +24,38 @@ const Body =()=>{
   }, []);
 
   const fetchData=async()=>{
-  const data=await fetch(
-    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.68282&lng=83.24323&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  );
+  const data=await fetch(restaurant);
+  //const data1=await fetch(restaurant1);
   const son=await data.json();
+  //const son1=await data1.json();
   //console.log(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-  
- Setlistofresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
- Setfilterresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+ 
+ const fecteddata=son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+ console.log(fecteddata);
+  //console.log("list1",son1);
+ // const {menulist}=son1.data;
+   //{menulist.map(item=><li>{item.card.card.info}</li>)}
+ //  Setlistofresto(son1.data?.cards[4].card.card.info);
+ //  console.log(son1.data?.cards[4].card.card.info);
+     Setlistofresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+     Setfilterresto(son.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
   };
   //console.log("body rendered");
   //console.log(listofresto.length);
-  if(listofresto.length === 0){
+
+  const onlinestatus=useOnlinestatus();
+  if(onlinestatus=== false)
+  return(
+          <h1>
+            Check your internet connection
+          </h1>);
+
+  return listofresto.length === 0 ?
    // console.log(listofresto.length);
-    return <Shimmer />;
-  }
+    (
+      <Shimmer/>
+    )
   
 
 
@@ -90,18 +107,18 @@ const Body =()=>{
 // },
 // }
 // ];
-    return(
+    :(
         <div className="body">
-        <div className="filter">
-        <div className="searching">
+        <div className="filter flex">
+        <div className="searching m-2 p-2">
             <input type="test" 
-            className="search-box"
+            className="border border-solid border-black rounded-lg"
             value={searchText}
             onChange={(e)=>{
             SetSearchtext(e.target.value);
           }}/>
 
-          <button onClick={()=>{
+          <button className="px-2 py-1 m-1 bg-sky-200 rounded-lg hover:bg-sky-300" onClick={()=>{
            // console.log(searchText);
 
            const filterRest1= listofresto.filter(
@@ -114,7 +131,7 @@ const Body =()=>{
           </button>
         </div>
           
-          <button className="filter-btn" onClick={()=>{
+          <button className="filter-btn px-2 py-1 m-5 bg-gray-300 rounded-lg hover:bg-gray-400" onClick={()=>{
          const filterresto= listofresto.filter((res)=>
               res.info.avgRating >=4
             );
@@ -130,7 +147,7 @@ const Body =()=>{
 
           </button>
         </div> */}
-        <div className="res-container"> 
+        <div className="flex flex-wrap"> 
     
             {
                 filterresto.map((naresh)=>(

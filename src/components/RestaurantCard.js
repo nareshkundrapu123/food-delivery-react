@@ -17,9 +17,9 @@ const RestaurantCard =(props)=>{
     }=resData?.info;
  //  console.log(props);
     return(
-      <div className="res-card" style={styleCard}>
+      <div className="m-4 p-4 w-[200px] rounded-lg bg-gray-300 hover:bg-gray-500" >
         <img
-        className="res-logo"
+        className="rounded-lg"
         alt="res-logo" 
         src={CDN_URL
         +cloudinaryImageId}/>
@@ -28,7 +28,7 @@ const RestaurantCard =(props)=>{
         className="res-logo" 
         alt="res-logo" 
         src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/jsv4qlq9g4ktvvbjebd7"/> */}
-        <h3>{name}</h3>
+        <h3 className="font-bold py-2">{name}</h3>
         <h4>{cuisines.join(", ")}</h4>
         <h4>{avgRating} stars</h4>
         <h4>{costForTwo}</h4>
@@ -38,5 +38,21 @@ const RestaurantCard =(props)=>{
     ); 
 
 };
+
+//Higher order components
+
+//input -RestaurantCard => RestaurantCardpromoted
+
+export const withfreedelivery=(RestaurantCard)=>{
+  return()=>{
+    return(
+      <div>
+        <label>Free delivery</label>
+        <RestaurantCard/>
+      </div>
+    );
+  };
+};
+
 
 export default RestaurantCard;
