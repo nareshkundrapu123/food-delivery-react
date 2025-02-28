@@ -1,12 +1,13 @@
 import RestaurantCard,{withfreedelivery} from "./RestaurantCard";
 
 import resObj from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import resObj from "../utils/mockData";
 import Shimmer from "./shimmer";
 import { Link } from "react-router-dom";
 import useOnlinestatus from "../utils/useOnlinestatus";
-import { restaurant } from "../utils/constants";
+import { restaurant} from "../utils/constants";
+import userContext from "../utils/userContext";
 const Body =()=>{
 
   //State Variable - Super powerful variable
@@ -16,8 +17,10 @@ const Body =()=>{
   const [filterresto,Setfilterresto]=useState([]);
   const [searchText,SetSearchtext]=useState("");
   
+  const{loggedInUser,setUserInfo}=useContext(userContext);
   console.log("bodyrender",listofresto); 
 
+  const Nearest=withfreedelivery(RestaurantCard);
   useEffect(()=>{
     //console.log("useEffect called");
     fetchData();
@@ -138,6 +141,13 @@ const Body =()=>{
             Setlistofresto(filterresto); 
           }}>Top Rated restuarant</button>
         </div>
+
+        <div className="search m-4 p-4">
+
+            <input type="text" className="border border-solid border-black" 
+            value={loggedInUser} onChange={(e)=>setUserInfo(e.target.value)}
+            />
+          </div>
         {/* <div className="refresh">
           <button className="refresh-btn" onClick={()=>{
             refrestlist=listofresto;
@@ -151,9 +161,15 @@ const Body =()=>{
     
             {
                 filterresto.map((naresh)=>(
-           <Link key={naresh.info.id} to={"/restaurants/"+naresh.info.id} > <RestaurantCard 
-              
-              resData={naresh}/></Link>
+           <Link 
+           key={naresh.info.id} 
+           to={"/restaurants/"+naresh.info.id} >
+             <RestaurantCard resData={naresh}/>
+             {naresh.info.locality==="Gajuwaka" ?(<Nearest resData={naresh}/>):(
+              <RestaurantCard resData={naresh}/>
+             )}
+             
+             </Link>
             
             )
                 )

@@ -1,4 +1,5 @@
 import {Component} from "react";
+import userContext from "../utils/userContext";
 
 
 class UserClass extends Component {
@@ -10,6 +11,7 @@ class UserClass extends Component {
         console.log("constructure");
         this.state={
             count:3,
+            
             
 
         }
@@ -23,6 +25,12 @@ class UserClass extends Component {
         return(
             <div className="user-card">
             <h1>{this.props.name}</h1>
+            <div>
+                loggedInUser
+                <userContext.Consumer>
+                    {({loggedInUser})=><h1 className="font-bold text-orange-700">{loggedInUser}</h1>}
+                </userContext.Consumer>
+            </div>
             <h2>count: {this.state.count}</h2>
             <button onClick={
                 ()=>{
