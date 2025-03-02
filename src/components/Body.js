@@ -23,7 +23,7 @@ const Body =()=>{
   const Nearest=withfreedelivery(RestaurantCard);
   useEffect(()=>{
     //console.log("useEffect called");
-    fetchData();
+   fetchData();
   }, []);
 
   const fetchData=async()=>{
@@ -111,7 +111,7 @@ const Body =()=>{
 // }
 // ];
     :(
-        <div className="body">
+        <div className="body" >
         <div className="filter flex">
         <div className="searching m-2 p-2">
             <input type="test" 

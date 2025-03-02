@@ -7,8 +7,9 @@ import Restromenu from "./components/Restaurantmenu.js";
 import Contact from "./components/Contactus.js";
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import userContext from "./utils/userContext.js";
-
-
+import { Provider } from "react-redux";
+import appStore from "./utils/Appstore.js";
+import Cart from "./components/Cart.js";
 //chunking
 //code splitting
 //dynamic bundling
@@ -38,7 +39,7 @@ const AppLayout= ()=>{
 
 
     return (
-        
+        <Provider store={appStore}>
         <div className="app">
             <userContext.Provider value={{loggedInUser:userInfo,setUserInfo}}>
             <Header />
@@ -46,6 +47,7 @@ const AppLayout= ()=>{
             <Outlet/>
             </userContext.Provider>
         </div>
+        </Provider>
     
     )
 };
@@ -72,9 +74,13 @@ const appRouter = createBrowserRouter([
                 element:<Restromenu/>,
             },
             {
-                path:"grocery",
+                path:"/grocery",
                 element:<Suspense fallback={<h1>Loading....</h1>}><Grocery/></Suspense>,
             },
+            {
+                path:"/cart",
+                element:<Cart/>,
+            }
 
         ]
 
