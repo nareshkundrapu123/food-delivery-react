@@ -10,6 +10,8 @@ const styleCard={
 const RestaurantCard =(props)=>{
   const {loggedInUser}=useContext(userContext);
     const{resData}=props;
+
+    console.log("mockdata",resData);
     const{cloudinaryImageId,
       name,
       cuisines,
@@ -18,7 +20,7 @@ const RestaurantCard =(props)=>{
       sla
       //resData?.data?.cards?.card.card.info
     }=resData?.info;
- //  console.log(props);
+ console.log("restaurants data",props);
     return(
       <div className="m-4 p-4 w-[200px] rounded-lg bg-gray-300 hover:bg-gray-500" >
         <img

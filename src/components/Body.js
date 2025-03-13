@@ -1,6 +1,5 @@
 import RestaurantCard,{withfreedelivery} from "./RestaurantCard";
 
-import resObj from "../utils/mockData";
 import { useContext, useEffect, useState } from "react";
 import resObj from "../utils/mockData";
 import Shimmer from "./shimmer";
@@ -22,7 +21,6 @@ const Body =()=>{
 
   const Nearest=withfreedelivery(RestaurantCard);
   useEffect(()=>{
-    //console.log("useEffect called");
    fetchData();
   }, []);
 
@@ -140,14 +138,17 @@ const Body =()=>{
             );
             Setlistofresto(filterresto); 
           }}>Top Rated restuarant</button>
+
+
+
+
+<label className="flex m-5">username :</label><input type="text" className="border border-solid m-2 p-0 border-black rounded-lg" 
+value={loggedInUser} onChange={(e)=>setUserInfo(e.target.value)}
+/>
+
         </div>
 
-        <div className="search m-4 p-4">
-
-            <input type="text" className="border border-solid border-black" 
-            value={loggedInUser} onChange={(e)=>setUserInfo(e.target.value)}
-            />
-          </div>
+       
         {/* <div className="refresh">
           <button className="refresh-btn" onClick={()=>{
             refrestlist=listofresto;
