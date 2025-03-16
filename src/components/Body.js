@@ -5,7 +5,7 @@ import resObj from "../utils/mockData";
 import Shimmer from "./shimmer";
 import { Link } from "react-router-dom";
 import useOnlinestatus from "../utils/useOnlinestatus";
-import { restaurant} from "../utils/constants";
+import { restaurant1} from "../utils/constants";
 import userContext from "../utils/userContext";
 const Body =()=>{
 
@@ -25,7 +25,7 @@ const Body =()=>{
   }, []);
 
   const fetchData=async()=>{
-  const data=await fetch(restaurant);
+  const data=await fetch(restaurant1);
   //const data1=await fetch(restaurant1);
   const son=await data.json();
   //const son1=await data1.json();
@@ -113,6 +113,7 @@ const Body =()=>{
         <div className="filter flex">
         <div className="searching m-2 p-2">
             <input type="test" 
+            data-testId="searchInput"
             className="border border-solid border-black rounded-lg"
             value={searchText}
             onChange={(e)=>{
